@@ -1,2 +1,5 @@
 FLASK_APP=microblog.py
 SECRET_KEY=asdflkj23@$ksefasSSFE@@
+FLASK_DEBUG=1
+MAIL_SERVER=localhost
+MAIL_PORT=8025
