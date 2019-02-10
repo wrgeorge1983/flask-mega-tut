@@ -1,35 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
     {% if title %}
-    <title>{{ title }} - Microblog</title>
+    {{ title }} - Microblog
     {% else %}
-    <title>Welcome to Microblog!</title>
+    Welcome to Microblog!
     {% endif %}
-</head>
-<body>
-    <div>
-        Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('explore') }}">Explore!</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('user_profile', username=current_user.username) }}">Profile</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </div>
-    <hr>
+{% endblock %}
+
+{% block navbar %}
+    {% if old_nav %}
+        {% include '_oldnav.html' %}
+    {% else %}
+        {% include '_newnav.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul>
         {% for message in messages %}
-        <li>{{ message }}</li>
+        <div class="alert alert-info" role="alert">{{ message }}</div>
         {% endfor %}
-    </ul>
     {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
-</body>
-</html>
+
+    {% block app_content %}{% endblock %}
+    </div>
+
+{% endblock %}
